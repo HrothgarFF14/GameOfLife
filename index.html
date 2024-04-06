@@ -1,17 +1,66 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>Game Project Title Goes Here</title>
-  
-    <script type="text/javascript" src="./assetmanager.js"></script>
-    <script type="text/javascript" src="./timer.js"></script>
-    <script type="text/javascript" src="./gameengine.js"></script>
-    <script type="text/javascript" src="./util.js"></script>
-    <script type="text/javascript" src="./main.js"></script>
-</head>
-<body>
-    <canvas id="gameWorld" width="1024" height="768" style="background: white; border: 1px solid black" tabindex="0" autofocus></canvas>
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <title>Game of Life</title>
+
+        <script type="text/javascript" src="./assetmanager.js"></script>
+        <script type="text/javascript" src="./timer.js"></script>
+        <script type="text/javascript" src="./gameengine.js"></script>
+        <script type="text/javascript" src="./util.js"></script>
+        <script type="text/javascript" src="./main.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+    </head>
+    <body>
+        <div id="wrapper" class="flex-container">
+            <div id="game-container">
+                <canvas
+                    id="gameWorld"
+                    width="1024"
+                    height="768"
+                    style="background: white; border: 1px solid black"
+                    tabindex="0"
+                    autofocus
+                ></canvas>
+            </div>
+
+            <div id="info-container">
+                <div class="box-information">
+                    <div class="subtitle">General Information</div>
+                    <p class="info">
+                        <abbr title="Number of Generations">Generation</abbr>:
+                        <span id="generation"></span> |
+                        <abbr title="Live Cells">Live Cells</abbr>:
+                        <span id="live-cells"></span> |
+                    </p>
+                </div>
+
+                <div class="box-controls">
+                    <div class="subtitle">Simulation Controls</div>
+                    <form action="">
+                        <input
+                            type="button"
+                            value="Run"
+                            id="buttonRun"
+                            title="Key: R"
+                        />
+                        <input
+                            type="button"
+                            value="Step"
+                            id="buttonStep"
+                            title="Key: S"
+                        />
+                        <input
+                            type="button"
+                            value="Clear"
+                            id="buttonClear"
+                            title="Key: C"
+                        />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
