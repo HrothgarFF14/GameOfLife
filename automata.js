@@ -12,6 +12,13 @@ class Automata {
         this.speed = 100;
         this.ticks = 0;
 
+        for (let col = 0; col < this.width; col++) {
+            this.automata.push([]);
+            for (let row = 0; row < this.height; row++) {
+                this.automata[col][row] = 0;
+            }
+        }
+
         this.fillRandom();
     }
 
