@@ -3,7 +3,9 @@ class Automata {
      * Initiates the Automata object
      * @constructor
      */
-    constructor() {
+    constructor(gameEngine) {
+        Object.assign(this, { gameEngine });
+
         this.automata = [];
         this.width = 100;
         this.height = 200;
