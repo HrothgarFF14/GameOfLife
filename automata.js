@@ -7,11 +7,11 @@ class Automata {
         Object.assign(this, { gameEngine });
 
         this.automata = [];
-        this.width = 100;
-        this.height = 200;
+        this.width = 200;
+        this.height = 100;
         this.cellSize = 8;
         this.automata = this.createGrid();
-        this.speed = 100;
+        this.speed = 10;
         this.ticks = 0;
 
         this.fillRandom();
@@ -26,7 +26,7 @@ class Automata {
         for (let col = 0; col < this.width; col++) {
             grid[col] = [];
             for (let row = 0; row < this.height; row++) {
-                grid[col][row] = Math.random() > 0.5 ? 1 : 0;
+                grid[col][row] = randomInt(2);
             }
         }
         return grid;
