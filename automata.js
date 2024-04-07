@@ -8,16 +8,8 @@ class Automata {
         this.height = 50;
         this.cellSize = 8;
         this.automata = this.createGrid();
-        this.ctx = document.getElementById("canvas")?.getContext("2d");
         this.speed = 100;
         this.ticks = 0;
-
-        for (let col = 0; col < this.width; col++) {
-            this.automata.push([]);
-            for (let row = 0; row < this.height; row++) {
-                this.automata[col][row] = 0;
-            }
-        }
 
         this.fillRandom();
     }
@@ -38,9 +30,9 @@ class Automata {
     }
 
     fillRandom() {
-        for (let x = 0; x < this.width; x++) {
-            for (let y = 0; y < this.height; y++) {
-                this.board[x][y] = Math.floor(Math.random() * 2);
+        for (let col = 0; col < this.width; col++) {
+            for (let row = 0; row < this.height; row++) {
+                this.board[col][row] = randomInt(2);
             }
         }
     }
