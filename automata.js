@@ -4,8 +4,9 @@ class Automata {
      * @constructor
      */
     constructor() {
+        this.automata = [];
         this.width = 100;
-        this.height = 50;
+        this.height = 200;
         this.cellSize = 8;
         this.automata = this.createGrid();
         this.speed = 100;
