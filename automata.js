@@ -56,7 +56,7 @@ class Automata {
                 if (
                     neighborRow >= 0 &&
                     neighborRow < this.height &&
-                    neightborCol >= 0 &&
+                    neighborCol >= 0 &&
                     neighborCol < this.width &&
                     !(offsetRow === 0 && offsetCol === 0) &&
                     this.automata[neighborCol][neighborRow]
