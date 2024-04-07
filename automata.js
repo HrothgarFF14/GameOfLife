@@ -32,24 +32,32 @@ class Automata {
     fillRandom() {
         for (let col = 0; col < this.width; col++) {
             for (let row = 0; row < this.height; row++) {
-                this.board[col][row] = randomInt(2);
+                this.automata[col][row] = randomInt(2);
             }
         }
     }
 
     /**
      * Function to count live neighbors of a cell at position (x, y)
-     * @param {number} cell at position x
-     * @param {number} cell at position y
+     * @param {number} row at position x
+     * @param {number} col at position y
      * @returns {number} The number of neighbors
      */
-    countNeighbors(x, y) {
+    countNeighbors(row, col) {
         let count = 0;
-        for (let i = -1; i <= 1; i++) {
-            for (let j = -1; j <= 1; j++) {
-                const nextX = x + i;
-                const nextY = y + i;
-                if (!(i === 0 && j === 0) && this.automata?.[nextX]?.[nextY]) {
+        for (let offsetRow = -1; offsetRow <= 1; offsetRow++) {
+            for (let offsetCol = -1; offsetCol <= 1; offsetCol++) {
+                const neighborRow = row + offsetRow;
+                const neighborCol = col + offsetCol;
+
+                if (
+                    neighborRow >= 0 &&
+                    neighborRow < this.height &&
+                    neightborCol >= 0 &&
+                    neighborCol < this.width &&
+                    !(offsetRow === 0 && offsetCol === 0) &&
+                    this.automata[neighborCol][neighborRow]
+                ) {
                     count++;
                 }
             }
@@ -64,8 +72,8 @@ class Automata {
         const nextAutomata = this.createGrid();
         for (let col = 0; col < this.width; col++) {
             for (let row = 0; row < this.height; row++) {
-                const neighbors = this.countNeighbors(col, row);
-                if (this.automata?.[col]?.[row] === 1) {
+                const neighbors = this.countNeighbors(row, col);
+                if (this.automata[col][row] === 1) {
                     if (neighbors < 2 || neighbors > 3) {
                         nextAutomata[col][row] = 0;
                     } else {
