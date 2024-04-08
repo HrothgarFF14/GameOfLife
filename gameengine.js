@@ -14,6 +14,9 @@ class GameEngine {
         this.mouse = null;
         this.wheel = null;
         this.keys = {};
+
+        this.surfaceWidth = null;
+        this.surfaceHeight = null;
     }
 
     init(ctx) {
@@ -34,48 +37,52 @@ class GameEngine {
     }
 
     startInput() {
-        const getXandY = (e) => ({
-            x: e.clientX - this.ctx.canvas.getBoundingClientRect().left,
-            y: e.clientY - this.ctx.canvas.getBoundingClientRect().top,
-        });
+        var that = this;
 
-        this.ctx.canvas.addEventListener("mousemove", (e) => {
-            if (this.options.debugging) {
-                console.log("MOUSE_MOVE", getXandY(e));
-            }
-            this.mouse = getXandY(e);
-        });
+        var getXandY = function (e) {
+            var x = e.clientX - that.ctx.canvas.getBoundingClientRect().left;
+            var y = e.clientY - that.ctx.canvas.getBoundingClientRect().top;
 
-        this.ctx.canvas.addEventListener("click", (e) => {
-            if (this.options.debugging) {
-                console.log("CLICK", getXandY(e));
-            }
-            this.click = getXandY(e);
-        });
-
-        this.ctx.canvas.addEventListener("wheel", (e) => {
-            if (this.options.debugging) {
-                console.log("WHEEL", getXandY(e), e.wheelDelta);
-            }
-            e.preventDefault(); // Prevent Scrolling
-            this.wheel = e;
-        });
-
-        this.ctx.canvas.addEventListener("contextmenu", (e) => {
-            if (this.options.debugging) {
-                console.log("RIGHT_CLICK", getXandY(e));
-            }
-            e.preventDefault(); // Prevent Context Menu
-            this.rightclick = getXandY(e);
-        });
+            return { x: x, y: y };
+        };
 
         this.ctx.canvas.addEventListener(
-            "keydown",
-            (event) => (this.keys[event.key] = true)
+            "mousemove",
+            function (e) {
+                //console.log(getXandY(e));
+                that.mouse = getXandY(e);
+            },
+            false
         );
+
         this.ctx.canvas.addEventListener(
-            "keyup",
-            (event) => (this.keys[event.key] = false)
+            "click",
+            function (e) {
+                //console.log(getXandY(e));
+                that.click = getXandY(e);
+            },
+            false
+        );
+
+        this.ctx.canvas.addEventListener(
+            "wheel",
+            function (e) {
+                //console.log(getXandY(e));
+                that.wheel = e;
+                //       console.log(e.wheelDelta);
+                e.preventDefault();
+            },
+            false
+        );
+
+        this.ctx.canvas.addEventListener(
+            "contextmenu",
+            function (e) {
+                //console.log(getXandY(e));
+                that.rightclick = getXandY(e);
+                e.preventDefault();
+            },
+            false
         );
     }
 
