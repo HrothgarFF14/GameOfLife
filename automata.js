@@ -46,7 +46,7 @@ class Automata {
      * @param {number} col at position y
      * @returns {number} The number of neighbors
      */
-    countNeighbors(row, col) {
+    countNeighbors(col, row) {
         let count = 0;
         for (let offsetRow = -1; offsetRow <= 1; offsetRow++) {
             for (let offsetCol = -1; offsetCol <= 1; offsetCol++) {
@@ -56,7 +56,7 @@ class Automata {
                 if (
                     neighborRow >= 0 &&
                     neighborRow < this.height &&
-                    neightborCol >= 0 &&
+                    neighborCol >= 0 &&
                     neighborCol < this.width &&
                     !(offsetRow === 0 && offsetCol === 0) &&
                     this.automata[neighborCol][neighborRow]
@@ -117,7 +117,6 @@ class Automata {
             }
         }
     }
-
     /**
      * Function to start the simulation loop
      */
