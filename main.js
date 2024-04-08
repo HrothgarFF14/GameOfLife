@@ -14,8 +14,8 @@ ASSET_MANAGER.downloadAll(function () {
     }
 
     gameEngine.init(ctx);
-
-    gameEngine.addEntity(new Automata(gameEngine));
+    var automata = new Automata(gameEngine);
+    gameEngine.addEntity(automata);
 
     gameEngine.start();
 });

@@ -10,14 +10,16 @@ class Automata {
         this.width = 800;
         this.height = 400;
         this.cellSize = 8;
-        this.automata = this.createGrid();
+        this.intervalId = null;
 
         this.speed = parseInt(document.getElementById("speed").value, 10);
 
         this.ticks = 0;
         this.tickCount = 0;
 
-        this.fillRandom();
+        this.automata = this.createGrid();
+
+        this.intializeGUIComponents();
     }
 
     /**
@@ -35,18 +37,25 @@ class Automata {
         return grid;
     }
 
-    fillRandom() {
+    clearBoard() {
+        this.ticks = 0;
+        this.tickCount = 0;
         for (let col = 0; col < this.width; col++) {
             for (let row = 0; row < this.height; row++) {
-                this.automata[col][row] = randomInt(2);
+                this.automata[col][row] = 0;
             }
         }
+        this.stopSimulation();
     }
 
+    intializeGUIComponents() {
+        const clearBtn = document.getElementById("buttonClear");
+        clearBtn.addEventListener("click", () => this.clearBoard());
+    }
     /**
      * Function to count live neighbors of a cell at position (x, y)
-     * @param {number} row at position x
-     * @param {number} col at position y
+     * @param {number} col at position x
+     * @param {number} row at position y
      * @returns {number} The number of neighbors
      */
     countNeighbors(col, row) {
@@ -71,10 +80,49 @@ class Automata {
         return count;
     }
 
+    runSimulation() {
+        if (!this.isRunning()) {
+            this.intervalId = setInterval(() => {
+                this.update();
+            }, 1000 / 30);
+        }
+    }
+
+    stopSimulation() {
+        if (this.isRunning()) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+        }
+        gameEngine.stop();
+    }
+
+    stepSimulation() {
+        this.stopSimulation();
+        this.update();
+    }
+
+    clearSimulation() {
+        this.stopSimulation();
+    }
+
+    toggleRunStop() {
+        if (this.isRunning()) {
+            this.stopSimulation();
+        } else {
+            this.runSimulation();
+        }
+    }
+
+    isRunning() {
+        return this.intervalId !== null;
+    }
+
     /**
      * Function to update the grid based on rules of Conway's Way of Life
      */
     update() {
+        this.speed = parseInt(document.getElementById("speed").value, 10);
+
         if (this.tickCount++ >= this.speed && this.speed != 120) {
             this.tickCount = 0;
             this.ticks++;

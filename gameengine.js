@@ -15,8 +15,10 @@ class GameEngine {
         this.wheel = null;
         this.keys = {};
 
+        this.intervalId = null;
         this.surfaceWidth = null;
         this.surfaceHeight = null;
+        this.running = true;
     }
 
     init(ctx) {
@@ -34,6 +36,11 @@ class GameEngine {
             requestAnimFrame(gameLoop, this.ctx.canvas);
         };
         gameLoop();
+    }
+
+    stop() {
+        this.running = false;
+        cancelAnimationFrame(this.intervalId);
     }
 
     startInput() {
@@ -101,19 +108,21 @@ class GameEngine {
     }
 
     update() {
-        let entitiesCount = this.entities.length;
+        if (this.running) {
+            let entitiesCount = this.entities.length;
 
-        for (let i = 0; i < entitiesCount; i++) {
-            let entity = this.entities[i];
+            for (let i = 0; i < entitiesCount; i++) {
+                let entity = this.entities[i];
 
-            if (!entity.removeFromWorld) {
-                entity.update();
+                if (!entity.removeFromWorld) {
+                    entity.update();
+                }
             }
-        }
 
-        for (let i = this.entities.length - 1; i >= 0; --i) {
-            if (this.entities[i].removeFromWorld) {
-                this.entities.splice(i, 1);
+            for (let i = this.entities.length - 1; i >= 0; --i) {
+                if (this.entities[i].removeFromWorld) {
+                    this.entities.splice(i, 1);
+                }
             }
         }
     }
