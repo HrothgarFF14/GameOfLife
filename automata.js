@@ -169,15 +169,18 @@ class Automata {
 
     loadStillLife() {
         this.clearBoard();
+        // Block
         this.automata[100][50] = 1;
         this.automata[101][50] = 1;
         this.automata[100][51] = 1;
         this.automata[101][51] = 1;
+
         gameEngine.draw();
     }
 
     loadOscillator() {
         this.clearBoard();
+        // Blinker
         this.automata[100][50] = 1;
         this.automata[100][51] = 1;
         this.automata[100][52] = 1;
@@ -186,7 +189,8 @@ class Automata {
 
     loadSpaceship() {
         this.clearBoard();
-        this.automata[100][50] = 1;
+        //
+        this.automata[100][51] = 1;
         this.automata[101][50] = 1;
         this.automata[102][50] = 1;
         this.automata[103][50] = 1;
@@ -221,11 +225,14 @@ class Automata {
             gameEngine.stop();
         } else {
             if (this.boardCleared) {
-                this.automata = this.createGrid();
-                this.loadRandomGrid();
                 this.boardCleared = false;
+                gameEngine.start();
+            } else if (this.alreadyRunning) {
+                gameEngine.start();
+                this.alreadyRunning = false;
             }
             gameEngine.start();
+            this.alreadyRunning = true;
         }
     }
 
