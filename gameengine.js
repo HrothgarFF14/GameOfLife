@@ -30,7 +30,7 @@ class GameEngine {
     }
 
     start() {
-        console.log("Game engine starting...");
+        // console.log("Game engine starting...");
         this.running = true;
         const gameLoop = () => {
             this.loop();
@@ -40,7 +40,7 @@ class GameEngine {
     }
 
     stop() {
-        console.log("Game engine has stopped...");
+        // console.log("Game engine has stopped...");
         this.running = false;
         this.draw();
         this.update();

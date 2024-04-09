@@ -7,8 +7,8 @@ class Automata {
         Object.assign(this, { gameEngine });
 
         this.automata = [];
-        this.width = 400;
-        this.height = 200;
+        this.width = 200;
+        this.height = 100;
         this.cellSize = 8;
         this.intervalId = null;
 
@@ -18,14 +18,19 @@ class Automata {
         this.tickCount = 0;
         this.boardCleared = false;
         this.forceUpdate = false;
+        this.generation = 0;
+        this.liveCells = 0;
+        this.alreadyRunning = false;
 
         this.automata = this.createGrid();
+
+        this.loadRandomGrid();
 
         this.intializeGUIComponents();
     }
 
     /**
-     * Create and initialize a grid with random cells
+     * Create and initialize an empty grid
      * @returns The grid object
      */
     createGrid() {
@@ -33,10 +38,22 @@ class Automata {
         for (let col = 0; col < this.width; col++) {
             grid[col] = [];
             for (let row = 0; row < this.height; row++) {
-                grid[col][row] = randomInt(2);
+                grid[col][row] = 0;
             }
         }
         return grid;
+    }
+
+    loadRandomGrid() {
+        for (let col = 0; col < this.width; col++) {
+            for (let row = 0; row < this.height; row++) {
+                this.automata[col][row] = Math.random() > 0.5 ? 1 : 0;
+                if (this.automata[col][row] === 1) {
+                    this.liveCells++;
+                }
+            }
+        }
+        gameEngine.draw();
     }
 
     clearBoard() {
@@ -52,6 +69,7 @@ class Automata {
         gameEngine.draw();
         gameEngine.update();
         document.getElementById("ticks").innerHTML = "Ticks: " + this.ticks;
+        document.getElementById("live-cells").innerHTML = this.liveCells;
     }
 
     intializeGUIComponents() {
@@ -63,6 +81,15 @@ class Automata {
 
         const stepBtn = document.getElementById("buttonStep");
         stepBtn.addEventListener("click", () => this.step());
+
+        const stillLifeBtn = document.getElementById("buttonStillLife");
+        stillLifeBtn.addEventListener("click", () => this.loadStillLife());
+
+        const oscillatorBtn = document.getElementById("buttonOscillators");
+        oscillatorBtn.addEventListener("click", () => this.loadOscillator());
+
+        const spaceshipBtn = document.getElementById("buttonSpaceships");
+        spaceshipBtn.addEventListener("click", () => this.loadSpaceship());
     }
     /**
      * Function to count live neighbors of a cell at position (x, y)
@@ -96,11 +123,12 @@ class Automata {
      * Function to update the grid based on rules of Conway's Way of Life
      */
     update(forceUpdate) {
+        this.liveCells = 0;
         this.speed = parseInt(document.getElementById("speed").value, 10);
 
         if (
             forceUpdate ||
-            (this.tickCount++ >= this.speed && this.speed != 11)
+            (this.tickCount++ >= this.speed && this.speed != 12)
         ) {
             if (forceUpdate) {
                 this.tickCount = 0;
@@ -119,8 +147,12 @@ class Automata {
                         nextAutomata[col][row] = 0;
                     } else if (!isAlive && neighbors === 3) {
                         nextAutomata[col][row] = 1;
+                        this.liveCells++;
                     } else {
                         nextAutomata[col][row] = this.automata[col][row];
+                        if (this.automata[col][row] === 1) {
+                            this.liveCells++;
+                        }
                     }
                 }
             }
@@ -129,10 +161,42 @@ class Automata {
                     this.automata[col][row] = nextAutomata[col][row];
                 }
             }
+            this.generation++;
+            document.getElementById("live-cells").innerHTML = this.liveCells;
+            document.getElementById("generation").innerHTML = this.generation;
         }
     }
 
-    loadPresets(presetNames) {}
+    loadStillLife() {
+        this.clearBoard();
+        this.automata[100][50] = 1;
+        this.automata[101][50] = 1;
+        this.automata[100][51] = 1;
+        this.automata[101][51] = 1;
+        gameEngine.draw();
+    }
+
+    loadOscillator() {
+        this.clearBoard();
+        this.automata[100][50] = 1;
+        this.automata[100][51] = 1;
+        this.automata[100][52] = 1;
+        gameEngine.draw();
+    }
+
+    loadSpaceship() {
+        this.clearBoard();
+        this.automata[100][50] = 1;
+        this.automata[101][50] = 1;
+        this.automata[102][50] = 1;
+        this.automata[103][50] = 1;
+        this.automata[104][50] = 1;
+        this.automata[104][51] = 1;
+        this.automata[104][52] = 1;
+        this.automata[103][53] = 1;
+        this.automata[100][53] = 1;
+        gameEngine.draw();
+    }
 
     /**
      * Function to draw current state of the grid on the canvas
@@ -158,6 +222,7 @@ class Automata {
         } else {
             if (this.boardCleared) {
                 this.automata = this.createGrid();
+                this.loadRandomGrid();
                 this.boardCleared = false;
             }
             gameEngine.start();

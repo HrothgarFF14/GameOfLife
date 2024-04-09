@@ -18,8 +18,8 @@
             <div id="game-container">
                 <canvas
                     id="gameWorld"
-                    width="3200"
-                    height="1600"
+                    width="1600"
+                    height="800"
                     style="background: white; border: 1px solid black"
                 ></canvas>
             </div>
@@ -35,7 +35,7 @@
                     </p>
                 </div>
 
-                <div class="box-controls">
+                <div id="box-controls">
                     <div class="subtitle">Simulation Controls</div>
                     <div>
                         <div id="ticks">Ticks: 0</div>
@@ -44,53 +44,58 @@
                             id="speed"
                             type="range"
                             min="1"
-                            max="13"
-                            value="1"
-                            step="2"
+                            max="11"
+                            value="5"
+                            step="5"
                         />
                         <label for="speed">Slow</label>
                     </div>
-                    <form action="">
-                        <input
-                            type="button"
-                            value="Run/Stop"
-                            id="buttonToggle"
-                            title="Run or Stop the simulation"
-                        />
-                        <input
-                            type="button"
-                            value="Step"
-                            id="buttonStep"
-                            title="Take Step forward simulation"
-                        />
-                        <input
-                            type="button"
-                            value="Clear"
-                            id="buttonClear"
-                            title="Clear Board in simulation"
-                        />
-                    </form>
-                    <div class="subtitle">Presets</div>
-                    <form action="">
-                        <input
-                            type="button"
-                            value="Still Life"
-                            id="loadStillLife"
-                            title="Load Still-Lives into the board"
-                        />
-                        <input
-                            type="button"
-                            value="Oscillators"
-                            id="loadOscillators"
-                            title="Load Oscillators into the board"
-                        />
-                        <input
-                            type="button"
-                            value="Spaceships"
-                            id="loadSpaceships"
-                            title="Load Spaceships into the board"
-                        />
-                    </form>
+                    <div class="board-controls">
+                        <div class="subtitle">Board Controls</div>
+                        <form action="" class="controls">
+                            <input
+                                type="button"
+                                value="Run/Stop"
+                                id="buttonToggle"
+                                title="Run or Stop the simulation"
+                            />
+                            <input
+                                type="button"
+                                value="Step"
+                                id="buttonStep"
+                                title="Take Step forward simulation"
+                            />
+                            <input
+                                type="button"
+                                value="Clear"
+                                id="buttonClear"
+                                title="Clear Board in simulation"
+                            />
+                        </form>
+                    </div>
+                    <div class="box presets">
+                        <div class="subtitle">Presets</div>
+                        <form action="" class="controls">
+                            <input
+                                type="button"
+                                value="Still Life"
+                                id="buttonStillLife"
+                                title="Load Still-Lives into the board"
+                            />
+                            <input
+                                type="button"
+                                value="Oscillators"
+                                id="buttonOscillators"
+                                title="Load Oscillators into the board"
+                            />
+                            <input
+                                type="button"
+                                value="Spaceships"
+                                id="buttonSpaceships"
+                                title="Load Spaceships into the board"
+                            />
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
