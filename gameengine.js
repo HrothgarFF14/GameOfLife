@@ -102,7 +102,6 @@ class GameEngine {
 
     draw() {
         // console.log("Game engine drawing...");
-        // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
         // Draw latest things first

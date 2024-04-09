@@ -44,6 +44,9 @@ class Automata {
         return grid;
     }
 
+    /**
+     * Load a random grid of cells onto the automata board.
+     */
     loadRandomGrid() {
         for (let col = 0; col < this.width; col++) {
             for (let row = 0; row < this.height; row++) {
@@ -56,6 +59,9 @@ class Automata {
         gameEngine.draw();
     }
 
+    /**
+     * Clears the board and resets the stats.
+     */
     clearBoard() {
         this.boardCleared = true;
         this.ticks = 0;
@@ -72,6 +78,9 @@ class Automata {
         document.getElementById("live-cells").innerHTML = this.liveCells;
     }
 
+    /**
+     * Initializes the GUI components for the game of life.
+     */
     intializeGUIComponents() {
         const clearBtn = document.getElementById("buttonClear");
         clearBtn.addEventListener("click", () => this.clearBoard());
@@ -121,6 +130,7 @@ class Automata {
 
     /**
      * Function to update the grid based on rules of Conway's Way of Life
+     * @param {boolean} forceUpdate - If true, the grid will be updated regardless of the speed
      */
     update(forceUpdate) {
         this.liveCells = 0;
@@ -167,6 +177,9 @@ class Automata {
         }
     }
 
+    /**
+     * Loads a still life pattern onto the automata board.
+     */
     loadStillLife() {
         this.clearBoard();
         // Block
@@ -178,6 +191,9 @@ class Automata {
         gameEngine.draw();
     }
 
+    /**
+     * Loads an oscillator pattern onto the game board.
+     */
     loadOscillator() {
         this.clearBoard();
         // Blinker
@@ -187,9 +203,12 @@ class Automata {
         gameEngine.draw();
     }
 
+    /**
+     * Loads a spaceship pattern onto the automata board.
+     */
     loadSpaceship() {
         this.clearBoard();
-        //
+        //lightweight spaceship
         this.automata[100][51] = 1;
         this.automata[101][50] = 1;
         this.automata[102][50] = 1;
@@ -220,6 +239,12 @@ class Automata {
             }
         }
     }
+
+    /**
+     * Toggles the game engine's running state.
+     * If the game engine is currently running, it stops it.
+     * If the game engine is not running, it starts it.
+     */
     toggle() {
         if (gameEngine.running) {
             gameEngine.stop();
@@ -236,6 +261,10 @@ class Automata {
         }
     }
 
+    /**
+     * Advances the automata by one step.
+     * @returns {void}
+     */
     step() {
         this.update(true);
         gameEngine.draw();
