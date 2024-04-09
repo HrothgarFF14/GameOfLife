@@ -18,8 +18,8 @@
             <div id="game-container">
                 <canvas
                     id="gameWorld"
-                    width="800"
-                    height="400"
+                    width="3200"
+                    height="1600"
                     style="background: white; border: 1px solid black"
                 ></canvas>
             </div>
@@ -44,9 +44,9 @@
                             id="speed"
                             type="range"
                             min="1"
-                            max="120"
-                            value="30"
-                            step="1"
+                            max="13"
+                            value="1"
+                            step="2"
                         />
                         <label for="speed">Slow</label>
                     </div>
@@ -55,19 +55,40 @@
                             type="button"
                             value="Run/Stop"
                             id="buttonToggle"
-                            title="Key: R"
+                            title="Run or Stop the simulation"
                         />
                         <input
                             type="button"
                             value="Step"
                             id="buttonStep"
-                            title="Key: S"
+                            title="Take Step forward simulation"
                         />
                         <input
                             type="button"
                             value="Clear"
                             id="buttonClear"
-                            title="Key: C"
+                            title="Clear Board in simulation"
+                        />
+                    </form>
+                    <div class="subtitle">Presets</div>
+                    <form action="">
+                        <input
+                            type="button"
+                            value="Still Life"
+                            id="loadStillLife"
+                            title="Load Still-Lives into the board"
+                        />
+                        <input
+                            type="button"
+                            value="Oscillators"
+                            id="loadOscillators"
+                            title="Load Oscillators into the board"
+                        />
+                        <input
+                            type="button"
+                            value="Spaceships"
+                            id="loadSpaceships"
+                            title="Load Spaceships into the board"
                         />
                     </form>
                 </div>

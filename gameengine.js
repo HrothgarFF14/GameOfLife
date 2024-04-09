@@ -30,6 +30,7 @@ class GameEngine {
     }
 
     start() {
+        console.log("Game engine starting...");
         this.running = true;
         const gameLoop = () => {
             this.loop();
@@ -39,8 +40,10 @@ class GameEngine {
     }
 
     stop() {
+        console.log("Game engine has stopped...");
         this.running = false;
-        cancelAnimationFrame(this.intervalId);
+        this.draw();
+        this.update();
     }
 
     startInput() {
@@ -98,6 +101,7 @@ class GameEngine {
     }
 
     draw() {
+        // console.log("Game engine drawing...");
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
@@ -108,6 +112,7 @@ class GameEngine {
     }
 
     update() {
+        // console.log("Game engine is updating");
         if (this.running) {
             let entitiesCount = this.entities.length;
 
@@ -128,10 +133,23 @@ class GameEngine {
     }
 
     loop() {
+        if (this.running) {
+            this.clockTick = this.timer.tick();
+            this.update();
+            this.draw();
+        }
+    }
+
+    step() {
+        this.running = true;
+
         this.clockTick = this.timer.tick();
         this.update();
         this.draw();
-    }
-}
 
+        this.running = false;
+    }
+
+    /* GUI Helper */
+}
 // KV Le was here :)
